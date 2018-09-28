@@ -1,0 +1,35 @@
+<h3>Fabecook top Pages</h3>
+<div class="card">
+  <div class="card-body">
+    <mat-form-field>
+      <mat-select placeholder="Countries" (selectionChange)="selectCountryHandler($event.value)" >
+        <mat-option *ngFor="let country of countries" [value]="country.value">
+          {{country.viewValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="container mat-elevation-z8">
+      <table #table class="table-hover">
+        <thead>
+        <tr>
+            <td>Position</td>
+            <td>Page Name</td>
+            <td></td>
+            <td>Fans</td>
+        </tr>
+        </thead>
+
+        <tbody>
+            <tr *ngFor="let page of pages">
+                <td>{{ page.position }}</td>
+                <td>{{ page.pageName }}</td>
+                <td></td>
+                <td class="to-right">{{ page.pageTotal }}</td>
+            </tr>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+</div>

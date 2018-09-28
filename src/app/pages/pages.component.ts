@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
 
 import { DataSource } from '@angular/cdk/collections';
-import {MatTableDataSource} from '@angular/material';
 
 import { Observable } from 'rxjs';
 
@@ -30,7 +29,7 @@ export class PagesComponent implements OnInit {
     this.api.getPages(this.country||'mexico')
       .subscribe(res => {
         console.log(res);
-        this.pages = res;
+        this.pages = res.data;
       }, err => {
         console.log(err);
       });
@@ -39,7 +38,7 @@ export class PagesComponent implements OnInit {
     this.api.getCountries()
     .subscribe(res=>{
       console.log(res);
-      this.countries = res;
+      this.countries = res.data;
     },err=>{
       console.log(err);
     });
@@ -51,7 +50,7 @@ export class PagesComponent implements OnInit {
     this.api.getPages(this.country)
       .subscribe(res => {
         console.log(res);
-        this.pages = res;
+        this.pages = res.data;
       }, err => {
         console.log(err);
       });

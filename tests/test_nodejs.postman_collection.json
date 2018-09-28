@@ -7,6 +7,35 @@
 	"item": [
 		{
 			"name": "Get Pages by country",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ff46aabd-ef72-4b9c-a53b-0ad7de798ce7",
+						"type": "text/javascript",
+						"exec": [
+							"// Test Return data on success",
+							"pm.test(\"/public/countries returns http code 200 and an array of countries\",function(){",
+							"    ",
+							"    pm.expect(pm.response).to.have.status(200);",
+							"    pm.expect(pm.response.json().data.length).not.equal(0);",
+							"    ",
+							"});",
+							"",
+							"// Test Return response code 200",
+							"pm.test(\"/public/countries Returned response code 200\",function(){",
+							"    ",
+							"    pm.expect(pm.response).to.have.status(200);",
+							"    ",
+							"    var jsonData = pm.response.json();",
+							"    var code = jsonData.code;",
+							"    pm.expect(code).to.equal(200);",
+							"    ",
+							"});"
+						]
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -30,6 +59,35 @@
 		},
 		{
 			"name": "Get countries catalog",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "573980da-7719-44a8-a501-b038fcee3107",
+						"type": "text/javascript",
+						"exec": [
+							"// Test Return data on success",
+							"pm.test(\"/public/countries returns http code 200 and an array of countries\",function(){",
+							"    ",
+							"    pm.expect(pm.response).to.have.status(200);",
+							"    pm.expect(pm.response.json().data.length).not.equal(0);",
+							"    ",
+							"});",
+							"",
+							"// Test Return response code 202",
+							"pm.test(\"/public/countries Returned response code 202\",function(){",
+							"    ",
+							"    pm.expect(pm.response).to.have.status(200);",
+							"    ",
+							"    var jsonData = pm.response.json();",
+							"    var code = jsonData.code;",
+							"    pm.expect(code).to.equal(202);",
+							"    ",
+							"});"
+						]
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -50,6 +108,36 @@
 		},
 		{
 			"name": "Test  api",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "20517cdd-d51c-4148-93f0-0a5759ad7241",
+						"type": "text/javascript",
+						"exec": [
+							"",
+							"// Test Return data on success",
+							"pm.test(\"/api returns http code 201 and an array of countries\",function(){",
+							"    ",
+							"    pm.expect(pm.response).to.have.status(201);",
+							"    pm.expect(pm.response.json().data.length).not.equal(0);",
+							"    ",
+							"});",
+							"",
+							"// Test Return response code 201",
+							"pm.test(\"/api Returned response code 201\",function(){",
+							"    ",
+							"    pm.expect(pm.response).to.have.status(201);",
+							"    ",
+							"    var jsonData = pm.response.json();",
+							"    var code = jsonData.code;",
+							"    pm.expect(code).to.equal(201);",
+							"    ",
+							"});"
+						]
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],

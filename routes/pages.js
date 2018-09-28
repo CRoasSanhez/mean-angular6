@@ -3,6 +3,7 @@ var express = require('express');
 var cheerio = require('cheerio');
 var request = require('request');
 var util = require('../util/util');
+var response = require('../models/Response');
 
 var pages = express.Router();
 
@@ -10,24 +11,28 @@ var pages = express.Router();
 pages.get('/', function(req, res, next) {
   var data = util.readCountryData('mexico');
   if( data ){
-    console.log("File found");
-    res.status(200);
-    res.send(data);
+    // Set http status
+    res.status(201);
+
+    // sends an api response
+    res.send(response.SuccessResponse(data,"Countries found",201));
   }
-  var pages = [];
-  res.send(pages);
+  data = [];
+
+  res.status(200);
+  // Sends an api response
+  res.send(response.SuccessResponse(data,"Api available"));
 });
 
 pages.get('/scrapp/facebook/top/:country',function(req,res,next){
   var country = req.params.country || 'mexico';
   var url = 'https://www.socialbakers.com/statistics/facebook/pages/total/'+country;
   
-  // Check if information already exists
+  // Check if pages information already exists
   var data = util.readCountryData(country);
   if( data ){
-    console.log("File found");
     res.status(200);
-    res.send(data);
+    res.send(response.SuccessResponse(data,"Pages found"));
   }
   else{
     // request for information if doesn't exists
@@ -60,33 +65,15 @@ pages.get('/scrapp/facebook/top/:country',function(req,res,next){
                 topPages[idx].pageTotal = that.text().trim()
             });
 
-            // iterating through tr elements in table
-            /*
-            $('.brand-table-list tr').each(function(idx,elem){
-              var that = $(this);
-                // get page position
-                page.position = that.find(".item-count").text().trim();
-
-                // Get page name
-                page.pageName = that.find(".show-name").text().trim();
-
-                // Get page total count
-                page.pageTotal = that.find("strong").text().trim();
-
-
-                //topPages.push(page);
-            });
-            */
-
             // updates/insert country json
             util.writeCountryData(country,topPages);
 
             res.status(200);
-            res.send(topPages);
+            res.send(response.SuccessResponse(topPages,"Scrapper Pages found",201));
             
         }else{
           res.status(500);
-          res.send(error);
+          res.send(response.InternalError(500));
         }
       });
     }
